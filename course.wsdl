@@ -1,0 +1,40 @@
+<definitions name="CourseService"
+  targetNamespace="http://www.example.org/CourseService/"
+  xmlns:tns="http://www.example.org/CourseService/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+  
+  <message name="GetCourseRequest">
+    <part name="id" type="xsd:int"/>
+  </message>
+  <message name="GetCourseResponse">
+    <part name="name" type="xsd:string"/>
+  </message>
+  
+  <portType name="CourseServicePortType">
+    <operation name="GetCourse">
+      <input message="tns:GetCourseRequest"/>
+      <output message="tns:GetCourseResponse"/>
+    </operation>
+  </portType>
+  
+  <binding name="CourseServiceBinding" type="tns:CourseServicePortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetCourse">
+      <soap:operation soapAction="getCourse"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service name="CourseService">
+    <port name="CourseServicePort" binding="tns:CourseServiceBinding">
+      <soap:address location="http://localhost:3002/wsdl"/>
+    </port>
+  </service>
+</definitions>

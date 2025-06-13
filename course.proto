@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service CourseService {
+  rpc GetCourse (CourseRequest) returns (CourseResponse);
+}
+
+message CourseRequest {
+  int32 id = 1;
+}
+
+message CourseResponse {
+  string name = 1;
+}
