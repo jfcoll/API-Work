@@ -2,7 +2,6 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-// Serve a simple UI to enter partner token and view results
 app.get('/', (req, res) => {
   res.send(`
 <!DOCTYPE html>
@@ -42,17 +41,14 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Composite data endpoint
 app.get('/api/composite-data', async (req, res) => {
   try {
     const token = req.headers['x-api-key'];
     const compositeResult = {};
 
-    // Public data: always included
     const publicResponse = await axios.get('http://localhost:4001/api/public/courses');
     compositeResult.courses = publicResponse.data;
 
-    // Partner data: optional, only if valid token
     try {
       const partnerResponse = await axios.get('http://localhost:4002/api/partner/data', {
         headers: {
@@ -61,7 +57,7 @@ app.get('/api/composite-data', async (req, res) => {
       });
       compositeResult.partners = partnerResponse.data;
     } catch (err) {
-      // Token missing or invalid
+
       compositeResult.partners = 'Access denied or no token provided';
     }
 

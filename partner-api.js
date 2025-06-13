@@ -1,10 +1,8 @@
 const express = require('express');
 const app = express();
 
-// Dummy token for partner
 const PARTNER_TOKEN = 'secret-token-123';
 
-// Serve the simple frontend at root "/"
 app.get('/', (req, res) => {
     res.send(`
       <html>
@@ -41,9 +39,7 @@ app.get('/', (req, res) => {
     `);
   });
 
-// Define a GET endpoint at /api/partner/data
 app.get('/api/partner/data', (req, res) => {
-    // Extract the API key token sent in the request headers (x-api-key)
     const token = req.headers['x-api-key'];
 
     if (token !== PARTNER_TOKEN) {

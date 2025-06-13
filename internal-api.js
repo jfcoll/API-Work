@@ -3,7 +3,6 @@ const app = express();
 
 const secret_token = 'internal-access';
 
-// Authentication middleware to verify internal access token
 function authenticateInteral(req, res, next) {
     const internalHeader = req.headers['x-internal-auth'];
 
@@ -11,7 +10,6 @@ function authenticateInteral(req, res, next) {
         return res.status(403).send('Forbidden: Internal use only');
     }
 
-    // If token is valid, proceed to next middleware or route handler
     next();
 };
 
@@ -52,7 +50,6 @@ app.get('/', (req, res) => {
   });
   
 app.get('/api/internal/stats', authenticateInteral, (req, res) => {
-    // if token is valid, send back server statistics as JSON
     res.send({ serverLoad: '23%', uptime: '12 days' });
 });
 
